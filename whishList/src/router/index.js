@@ -3,7 +3,7 @@ import { createRouter, createMemoryHistory } from "vue-router";
 
 import Home from "../components/Home.vue";
 import About from "../components/About.vue";
-import Search from "../components/Search.vue";
+import Search from "../pages/Search.vue";
 import Favorites from "../components/Favorites.vue";
 import ItemDetail from "../components/ItemDetail.vue";
 
