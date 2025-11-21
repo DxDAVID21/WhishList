@@ -1,40 +1,44 @@
 <script setup>
-import { ref } from 'vue';
-import { serarchAnime } from '@/services/communicationManager';
-import ItemCard from '../components/ItemCard.vue';
+import { ref } from "vue";
+import { searchAnime } from "@/services/communicationManager";
+import SearchBar from "../components/SearchBar.vue";
+import ItemCard from "../components/ItemCard.vue";
 
-const searchQuery = ref('');
 const results = ref([]);
 const isLoading = ref(false);
+const error = ref(null);
 
-async function doSearch() {
-  if (!searchQuery.value.trim()) return;
-  
-  isLoading.value = true;
-  results.value = await serarchAnime(searchQuery.value);
-  isLoading.value = false;
-} 
+async function handleSearch(query) {
+  try {
+    isLoading.value = true;
+    error.value = null;
 
+    const response = await searchAnime(query);
+    console.log("Search response:", response);
+
+    results.value = response;
+  } catch (err) {
+    console.error("Search error:", err);
+
+    error.value = "Error loading results.";
+  } finally {
+    isLoading.value = false; 
+  }
+}
 </script>
 
 <template>
   <div>
-    <h1>Buscar Anime</h1>
-    <input 
-      v-model="searchQuery"
-      placeholder="Enter anime title"
-      @keyup.enter="doSearch"
-    />
+    <SearchBar @search="handleSearch" />
 
-    <button @click="doSearch">Buscar</button>
-
-    <div v-if="isLoading">Cargant...</div>
+    <p v-if="isLoading">Loading...</p>
+    <p v-if="error">{{ error }}</p>
 
     <div class="grid">
       <ItemCard 
         v-for="item in results" 
         :key="item.mal_id" 
-        :item="item" 
+        :item="item"
       />
     </div>
     <p>Welcome to Searching!</p>
