@@ -1,6 +1,6 @@
 <script setup>
 import { useFavoriteStore } from "@/stores/favoriteStore";
-const props = defineProps({
+const {item} = defineProps({
   item: {
     type: Object,
     required: true,
@@ -8,7 +8,7 @@ const props = defineProps({
 });
 
 const favoriteStore = useFavoriteStore();
-console.log("ItemCard recibe:", props.item);
+console.log("ItemCard recibe:", item);
 
 </script>
 
@@ -23,19 +23,7 @@ console.log("ItemCard recibe:", props.item);
     <p>Score: {{ item.score }}</p>
     <p>Episodes: {{ item.episodes }}</p>
 
-    <button
-      @click="
-        favoriteStore.isFavorite(item)
-          ? favoriteStore.removeFavorite(item)
-          : favoriteStore.addFavorite(item)
-      "
-    >
-      {{
-        favoriteStore.isFavorite(item)
-          ? "Remove from Favorites"
-          : "Add to Favorites"
-      }}
-    </button>
+    <slot name="actions" :item="item"></slot>
   </div>
 </template>
 
