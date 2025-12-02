@@ -14,12 +14,13 @@ export const useSearch = () => {
     error.value = null;
 
     try {
-      const response = await api.get("/search.php", {
-        params: { f: query.value },
+      const response = await api.get("/anime", {
+        params: { q: query.value },
       });
-      results.value = response.data.meals;
+      results.value = response.data.data || [];
     } catch (e) {
       error.value = "Error carregant dades.";
+      results.value = []; 
     }
 
     loading.value = false;

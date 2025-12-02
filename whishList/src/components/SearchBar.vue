@@ -17,7 +17,7 @@ function handleSearch() {
       placeholder="Search for anime..." 
     />
     <button @click="handleSearch">
-      Buscar
+      Cercar
     </button>
   </div>
 </template>

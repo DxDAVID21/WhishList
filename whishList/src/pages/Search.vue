@@ -1,33 +1,18 @@
 <script setup>
-import { ref } from "vue";
-import { searchAnime } from "@/services/communicationManager";
+import {useSearch} from "@/composables/useSearch.js";
 import {useFavoriteStore} from "@/stores/favoriteStore";
 import SearchBar from "../components/SearchBar.vue";
 import ItemCard from "../components/ItemCard.vue";
 
-const results = ref([]);
-const isLoading = ref(false);
-const error = ref(null);
+
+const { query, results, loading, error, search } = useSearch();
+
+async function ejecutarBusqueda(valor) {
+  query.value = valor;
+  await search();
+}
 
 const favoritesStore = useFavoriteStore();
-
-async function handleSearch(query) {
-  try {
-    isLoading.value = true;
-    error.value = null;
-
-    const response = await searchAnime(query);
-    console.log("Search response:", response);
-
-    results.value = response;
-  } catch (err) {
-    console.error("Search error:", err);
-
-    error.value = "Error loading results.";
-  } finally {
-    isLoading.value = false; 
-  }
-}
 
 function toggleFavorite(item){
   if(favoritesStore.isFavorite(item.mal_id)){
@@ -40,9 +25,9 @@ function toggleFavorite(item){
 
 <template>
   <div>
-    <SearchBar @search="handleSearch" />
+    <SearchBar @search="ejecutarBusqueda" />
 
-    <p v-if="isLoading">Loading...</p>
+    <p v-if="loading">Carregant...</p>
     <p v-if="error">{{ error }}</p>
 
     <div class="grid">

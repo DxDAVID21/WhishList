@@ -1,3 +1,6 @@
+//Amb la importació dels composobales el codi queda més net i organitzat
+//Per tant aquest fitxer queda sense ús actualment
+
 import axios from "axios";
 
 const api = axios.create({

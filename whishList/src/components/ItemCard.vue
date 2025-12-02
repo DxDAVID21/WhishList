@@ -1,5 +1,5 @@
 <script setup>
-import { useFavoriteStore } from "@/stores/favoriteStore";
+
 const {item} = defineProps({
   item: {
     type: Object,
@@ -7,7 +7,6 @@ const {item} = defineProps({
   },
 });
 
-const favoriteStore = useFavoriteStore();
 console.log("ItemCard recibe:", item);
 
 </script>
