@@ -10,7 +10,6 @@ import { RouterLink, RouterView } from 'vue-router';
     <RouterLink to = "/about" >Go to About</RouterLink>
     <RouterLink to = "/search" >Search</RouterLink>
     <RouterLink to = "/favorites" >Go to Favourites</RouterLink>
-    <RouterLink to = "/item/:id" >Search by ID</RouterLink>
   </nav>
 
 </template>

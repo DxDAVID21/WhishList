@@ -1,30 +1,24 @@
 import { ref } from "vue";
-import { useApi } from "./useApi";
+import { jikan } from "@/api/jikan.js";
 
-export const useSearch = () => {
-  const api = useApi();
-
-  const query = ref("");
+export function useSearch() {
   const results = ref([]);
   const loading = ref(false);
   const error = ref(null);
 
-  const search = async () => {
-    loading.value = true;
-    error.value = null;
-
-    try {
-      const response = await api.get("/anime", {
-        params: { q: query.value },
-      });
-      results.value = response.data.data || [];
-    } catch (e) {
-      error.value = "Error carregant dades.";
-      results.value = []; 
+  const searchAnime = async (query) => {
+    try{
+      loading.value = true;
+      error.value = null;
+      const res = await jikan.search(query);
+      results.value = res.data.data || [];
+    } catch (err) {
+      console.error(err);
+      error.value = "Error fetching data";
+    } finally {
+      loading.value = false;
     }
-
-    loading.value = false;
   };
 
-  return { query, results, loading, error, search };
-};
+  return { results, loading, error, searchAnime};
+}

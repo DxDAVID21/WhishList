@@ -1,49 +1,45 @@
 <script setup>
-import {useSearch} from "@/composables/useSearch.js";
-import {useFavoriteStore} from "@/stores/favoriteStore";
+import { useSearch } from "@/composables/useSearch.js";
+//import { useFavoriteStore } from "@/stores/favoriteStore";
 import SearchBar from "../components/SearchBar.vue";
-import ItemCard from "../components/ItemCard.vue";
+import AnimeCard from "../components/AnimeCard.vue";
 
-
-const { query, results, loading, error, search } = useSearch();
-
+const { results, loading, error, searchAnime } = useSearch();
+/*
 async function ejecutarBusqueda(valor) {
   query.value = valor;
-  await search();
+  await searchAnime();
 }
 
 const favoritesStore = useFavoriteStore();
 
-function toggleFavorite(item){
-  if(favoritesStore.isFavorite(item.mal_id)){
+function toggleFavorite(item) {
+  if (favoritesStore.isFavorite(item.mal_id)) {
     favoritesStore.removeFavorite(item.mal_id);
-  } else{
-    favoritesStore.addFavorite(item)
+  } else {
+    favoritesStore.addFavorite(item);
   }
 }
+*/
 </script>
 
 <template>
   <div>
-    <SearchBar @search="ejecutarBusqueda" />
+    <SearchBar @search="searchAnime" />
 
     <p v-if="loading">Carregant...</p>
     <p v-if="error">{{ error }}</p>
 
     <div class="grid">
-      <ItemCard
-        v-for="item in results" 
-        :key="item.mal_id" 
-        :item="item"
-      >
-         <template #actions="{item}">
-          <button
-            @click="toggleFavorite(item)"
-          >
-            {{ favoritesStore.isFavorite(item.mal_id) ? "Remove 💔"  : "Add ❤️" }}
+      <AnimeCard v-for="anime in results" :key="anime.mal_id" :anime="anime"/>
+        <!--<template #actions="{ item }">
+          <button @click="toggleFavorite(item)">
+            {{
+              favoritesStore.isFavorite(item.mal_id) ? "Remove 💔" : "Add ❤️"
+            }}
           </button>
-        </template> 
-      </ItemCard>
+        </template>
+        */-->
     </div>
     <p>Welcome to Searching!</p>
   </div>

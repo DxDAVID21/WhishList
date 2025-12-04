@@ -11,14 +11,16 @@ function handleSearch() {
 
 <template>
   <div class="search-bar">
-    <input 
-      v-model="searchQuery" 
-      type="text"
-      placeholder="Search for anime..." 
-    />
-    <button @click="handleSearch">
-      Cercar
-    </button>
+    <form @submit.prevent="handleSearch">
+      <input 
+        v-model="searchQuery" 
+        type="text"
+        placeholder="Search for anime..." 
+      />
+      <button type="submit">
+        Cercar
+      </button>
+    </form>
   </div>
 </template>
 

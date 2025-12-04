@@ -2,26 +2,39 @@ import {defineStore} from 'pinia';
 
 export const useFavoriteStore = defineStore('favoriteStore', {
   state: () => ({
-    favorites: [],
+    list: []
+    //favorites: JSON.parse(localStorage.getItem("favorites")) || [],
   }),
+
+  persist: true,
+
   actions: {  
-    addFavorite(item) {
-      if (!this.isFavorite(item.mal_id)) {
-        this.favorites.push(item);
+    addFavorite(anime) {
+      if (!this.list.some(a => a.mal_id === anime.mal_id)) {
+        this.list.push(anime);
       }
     },
     removeFavorite(id) {
-      this.favorites = this.favorites.filter(
-        fav => fav.mal_id !== id
+      this.list = this.list.filter(
+        a => a.mal_id !== id
       );
     },
-  },
-  getters: {
-    isFavorite: (state) => (id) => {
-      return state.favorites.some(
-        fav => fav.mal_id === id
-      );
+
+    isFavorite(id) {
+      return this.list.some(a => a.mal_id === id);
+    },
+    /*
+    save() {
+      localStorage.setItem("favorites", JSON.stringify(this.favorites));
     }
+    
+  },
+  
+  getters: {
+    isFavorite: (state) => (id) => 
+      state.favorites.some((anime) => anime.mal_id === id),
+  }
+    */
   }
 });
 

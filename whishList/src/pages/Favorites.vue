@@ -1,35 +1,23 @@
 <script setup>
-import { useFavoriteStore } from '@/stores/favoriteStore';
-import ItemCard from '@/components/ItemCard.vue';
+import BaseLayout from "@/layouts/BaseLayout.vue";
+import { useFavoriteStore } from "@/stores/favoriteStore";
+import AnimeCard from "@/components/AnimeCard.vue";
 
 const store = useFavoriteStore();
 </script>
 
-
 <template>
-  <div>
-    <h2>Favorits</h2>
-
-    <div v-if="store.favorites.length === 0">
-      No tens favorits encara.
+  <BaseLayout>
+    <h2 class="text-2x1 font-semibold mb-4">Favorits</h2>
+    <div v-if="store.list.length === 0" class="text gray-500 dark:text-gray-400">
+      Encara no has afegit cap anime a la teva llista de favorits.
     </div>
-
-    <div class="grid">
-      <ItemCard 
-        v-for="item in store.favorites" 
-        :key="item.mal_id" 
-        :item="item" 
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <AnimeCard
+        v-for="anime in store.list"
+        :key="anime.mal_id"
+        :anime="anime"
       />
     </div>
-    <p>Welcome to Favorites!</p>
-  </div>
+  </BaseLayout>
 </template>
-
-<style scoped>
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-  margin-top: 20px;
-}
-</style>
