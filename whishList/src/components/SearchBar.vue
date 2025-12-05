@@ -10,24 +10,22 @@ function handleSearch() {
 </script>
 
 <template>
-  <div class="search-bar">
-    <form @submit.prevent="handleSearch">
-      <input 
-        v-model="searchQuery" 
-        type="text"
-        placeholder="Search for anime..." 
-      />
-      <button type="submit">
-        Cercar
-      </button>
-    </form>
-  </div>
+  <form 
+    @submit.prevent="handleSearch"
+    class="w-full flex items-center gap-3 bg-neutral-900 p-4 rounded-xl shadow-lg max-w-xl mx-auto"
+  >
+    <input 
+      v-model="searchQuery" 
+      type="text"
+      placeholder="Search for anime..."
+      class="flex-1 px-4 py-2 rounde-lg bg-neutral-800 text-white placeholder-gray-400 focus:outline-none
+        focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+    />
+    <button 
+      type="submit"
+      class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition text-white font-semibold"
+    >
+      Cercar
+    </button>
+  </form>
 </template>
-
-<style scoped>
-.search-bar {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-</style>

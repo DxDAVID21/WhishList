@@ -30,25 +30,31 @@ const go = () => {
 <template>
   <div
     @click="go" 
-    class="cursor-pointer bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:sahdow-lg transition-all duration-300"
+    class="cursor-pointer bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
   >
     <img 
       :src="anime.images.jpg.image_url" 
       :alt="anime.title"
-      class="w-full h-56 object-cover" 
+      class="w-full h-60 object-cover" 
     />
-    <div class="p-3">
+    <div class="p-4 flex flex-col gap-2">
       <h3 class="font-medium text-lg line-clamp-1">{{ anime.title }}</h3>
+
       <p class="text-sm text-gray-500 dark:text-gray-400">{{ anime.type }}</p>
     </div>
       
-
-    <p>Score: {{ anime.score }}</p>
-    <p>Episodes: {{ anime.episodes }}</p>
+    <div class="text-sm text-gray-600 dark:text-gray-300 flex justify-between">
+      <span>⭐ {{ anime.score }}</span>
+      <span>🎞️ {{ anime.episodes }} eps</span>
+    </div>
 
     <button
       @click.stop="toggleFav"
-      :class="{ active: favoriteStore.isFavorite(anime.mal_id) }">
+      class="mt-2 px-3 py-2 rounded-lg text-sm font-medium border transition-all duration-200"
+      :class="{ active: favoriteStore.isFavorite(anime.mal_id) 
+        ? 'bg-red-500 text-white border-red-600 hover:bg-red-600'
+        : 'bg-gray-100 dark:gb-gray-700 hover:bg-gray-200 dark:hover:br-gray-600' 
+      }">
       {{ favoriteStore.isFavorite(anime.mal_id) ? 'Remove from Favorites' : 'Add to Favorites' }}
     </button>
 

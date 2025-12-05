@@ -71,7 +71,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style>
 .main-info {
   display: flex;
   gap: 20px;

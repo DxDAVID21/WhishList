@@ -1,17 +1,11 @@
 <script setup>
-import TheNavbar from './components/TheNavbar.vue';
+import BaseLayout from './layouts/BaseLayout.vue';
 
 </script>
 
 <template>
-  <TheNavbar />
-  <h1>Hello App!</h1>
-  <p><strong>Current route path:</strong> {{ $route.fullPath }}</p>
-  <main>
+  <BaseLayout>
     <RouterView />
-  </main>
-
+  </BaseLayout>
 </template>
 
-
-<style scoped></style>
