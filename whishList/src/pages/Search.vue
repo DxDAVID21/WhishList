@@ -34,14 +34,6 @@ function toggleFavorite(item) {
       class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 mt-6"
     >
       <AnimeCard v-for="anime in results" :key="anime.mal_id" :anime="anime"/>
-          <!--<template #actions="{ item }">
-            <button @click="toggleFavorite(item)">
-              {{
-                favoritesStore.isFavorite(item.mal_id) ? "Remove 💔" : "Add ❤️"
-              }}
-            </button>
-          </template>
-          */-->
     </div>
     <p
       v-if="!loading && results.length === 0"
@@ -49,7 +41,6 @@ function toggleFavorite(item) {
     >
       Escriu a la barra de cerca per veure resultats.
     </p>
-    <p>Welcome to Searching!</p>
   </div>
 </template>
 
