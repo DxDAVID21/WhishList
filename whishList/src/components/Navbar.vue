@@ -30,6 +30,14 @@ const route = useRoute();
         </RouterLink>
 
         <RouterLink
+          to="/ai"
+          class="trasition hover:text-blue-400"
+          :class="{'text-blue-400 font-semibold': route.path === '/ai'}"
+        >
+          AI (recomanacio)
+        </RouterLink>
+
+        <RouterLink
           to="/search"
           class="trasition hover:text-blue-400"
           :class="{'text-blue-400 font-semibold': route.path === '/search'}"

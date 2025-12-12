@@ -2,24 +2,21 @@
 import { useSearch } from "@/composables/useSearch.js";
 import SearchBar from "../components/SearchBar.vue";
 import AnimeCard from "../components/AnimeCard.vue";
+import { inject } from "vue";
 
 const { results, loading, error, searchAnime } = useSearch();
-/*
-async function ejecutarBusqueda(valor) {
-  query.value = valor;
-  await searchAnime();
-}
 
-const favoritesStore = useFavoriteStore();
+const globalLoading = inject("globalLoading");
 
-function toggleFavorite(item) {
-  if (favoritesStore.isFavorite(item.mal_id)) {
-    favoritesStore.removeFavorite(item.mal_id);
-  } else {
-    favoritesStore.addFavorite(item);
-  }
+async function algo() {
+  globalLoading.value = true; 
+
+  await new Promise(r => setTimeout(r, 1000));ç
+
+
+  glocbalLoading.value= false;
+  
 }
-*/
 </script>
 
 <template>
@@ -44,11 +41,3 @@ function toggleFavorite(item) {
   </div>
 </template>
 
-<style scoped>
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-  margin-top: 20px;
-}
-</style>
