@@ -8,7 +8,6 @@ import Favorites from "../pages/Favorites.vue";
 import AI from "../pages/IA.vue";
 
 import AnimeDetail from "../pages/Anime/Detail.vue";
-import { compile } from "vue";
 
 const routes = [
   {path: "/", component: Home},

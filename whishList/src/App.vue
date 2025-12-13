@@ -4,8 +4,8 @@ import GlobalLoader from './components/GlobalLoader.vue';
 </script>
 
 <template>
-  <GlobalLoader />
   <BaseLayout>
+    <GlobalLoader />
     <RouterView />
   </BaseLayout>
 </template>

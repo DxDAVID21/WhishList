@@ -2,21 +2,10 @@
 import { useSearch } from "@/composables/useSearch.js";
 import SearchBar from "../components/SearchBar.vue";
 import AnimeCard from "../components/AnimeCard.vue";
-import { inject } from "vue";
 
 const { results, loading, error, searchAnime } = useSearch();
 
-const globalLoading = inject("globalLoading");
 
-async function algo() {
-  globalLoading.value = true; 
-
-  await new Promise(r => setTimeout(r, 1000));ç
-
-
-  glocbalLoading.value= false;
-  
-}
 </script>
 
 <template>

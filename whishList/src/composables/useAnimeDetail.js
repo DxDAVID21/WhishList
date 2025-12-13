@@ -1,4 +1,4 @@
-import {ref} from "vue";
+import {ref, inject} from "vue";
 import {jikan} from "@/api/jikan.js";
 
 
@@ -10,21 +10,36 @@ export function useAnimeDetail() {
   const loading = ref(false);
   const error = ref(null);
 
+  const globalLoading = inject("globalLoading");
+
+  const wait = (ms) => new Promise((res) => setTimeout(res, ms));
+
   const fetchAnime = async (id) => {
     try {
+      globalLoading.value = true;
       loading.value = true;
       error.value = null;
 
-      const [animeRes, charRes, staffRes, recRes] = await Promise.all([
-        jikan.anime(id),
-        jikan.characters(id),
-        jikan.staff(id),
-        jikan.recommendations(id),
-      ]);
-
+      // 1) Anime
+      const animeRes = await jikan.anime(id);
       anime.value = animeRes.data.data;
+
+      await wait(700); // evita el 429
+
+      // 2) Characters
+      const charRes = await jikan.characters(id);
       characters.value = charRes.data.data;
+
+      await wait(700);
+
+      // 3) Staff
+      const staffRes = await jikan.staff(id);
       staff.value = staffRes.data.data;
+
+      await wait(700);
+
+      // 4) Recommendations
+      const recRes = await jikan.recommendations(id);
       recommendations.value = recRes.data.data;
       
     } catch (err) {
@@ -32,6 +47,7 @@ export function useAnimeDetail() {
       console.error(err);
     } finally {
       loading.value = false;
+      globalLoading.value = false;
     }
   };
   return { anime, characters, staff, recommendations, loading, error, fetchAnime };

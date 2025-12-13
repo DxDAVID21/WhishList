@@ -1,6 +1,9 @@
 <template>
   <transition name="fade">
-    <div v-if="loading" class="loader-overlay">
+    <div 
+      v-if="loading"
+      class="fixer inset-0 z-[9999] flex items.center justify-center backdrop-blur-sm-black/30 dark:bg-gray-900"
+    >
       <div class="loader"></div>
     </div>
   </transition>
@@ -12,24 +15,11 @@
 </script>
 
 <style>
-.loader-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(3px);
-  background: rgba(0, 0, 0, 0.3);
-  z-index: 9999;
-}
 
 .loader {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #666;
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(100, 100, 100, 0.3);
   border-top-color: #8b5cf6; 
   border-radius: 50%;
   animation: spin 0.8s linear infinite;

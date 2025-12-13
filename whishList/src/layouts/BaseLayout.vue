@@ -10,7 +10,7 @@
         <RouterLink to="/" class="hover:text-blue-500 transition">Home</RouterLink>
         <RouterLink to="/about" class="hover:text-blue-500 transition">About</RouterLink>
         <RouterLink to="/search" class="hover:text-blue-500 transition">Search</RouterLink>
-        <RouterLink to="/ai" class="hover:text-blue-500 transition">IA (recomanacio)</RouterLink>
+        <RouterLink to="/ai" class="hover:text-blue-500 transition">IA</RouterLink>
         <RouterLink to="/favorites" class="hover:text-red-500 transition">Favorites</RouterLink>
       </div>
     </nav>
