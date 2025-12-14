@@ -28,7 +28,11 @@ export const jikan = {
     return api.get(`/top/anime`, {
       params: { page },
     });
+  },
+  video(id) {
+    return api.get(`/anime/${id}/videos`)
   }
+
 };
 /*
 const BASE = "https://api.jikan.moe/v4";

@@ -12,7 +12,7 @@ try {
   genAI = {};
 }
 
-
+const SYSTEM_PROMPT = "Eres un asistente virtual experto y profesional en el mundo del anime. Tienes un conocimiento profundo en todas las categoría que globalizan el anime, incluyendo series de television, películas, OVAs (Original Video Animations), ONAs (Original Net Animations), CMs (Commercials), mangas y novelas ligeras. Tu tono es informativo, entusiasta y muy detallado. Siempre proporciona respuestas precisas y recomiendatítulos relevantes basándote en la solicitud del usuario.";
 
 export const useGemini = () => {
 
@@ -43,11 +43,6 @@ export const useGemini = () => {
           role: msg.role === 'user' ? 'user' : 'model',
           parts: [{ text: msg.content }]
         }));
-            
-        const generateFunction = genAI.models?.generateContent ||genAI.generateContent;
-        if (typeof generateFunction !== 'function') {
-          throw new Error("La funcio de generacion de contenido(generateCointent) no está disponible en la instancia de la Ia.")
-        }
 
         const result = await genAI.models.generateContent({
           model: "gemini-2.5-flash",

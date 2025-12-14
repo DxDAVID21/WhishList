@@ -2,7 +2,7 @@
 import { createRouter, createMemoryHistory } from "vue-router";
 
 import Home from "../pages/Home.vue";
-import About from "../components/About.vue";
+import About from "../pages/About.vue";
 import Search from "../pages/Search.vue";
 import Favorites from "../pages/Favorites.vue";
 import AI from "../pages/IA.vue";

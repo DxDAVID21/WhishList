@@ -10,7 +10,6 @@ const { anime } = defineProps({
 });
 
 const favoriteStore = useFavoriteStore();
-console.log("ItemCard recibe:", anime);
 
 function toggleFav() {
   const id = anime.mal_id;
@@ -28,35 +27,35 @@ const go = () => {
 </script>
 
 <template>
-  <div
+  <article
     @click="go" 
-    class="cursor-pointer bg-neutral text-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+    class="group cursor-pointer bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow hover:shadow-xl transition-all duration-300"
   >
-    <img 
-      :src="anime.images.jpg.image_url" 
-      :alt="anime.title"
-      class="w-full h-60 object-cover" 
-    />
-    <div class="p-4 space-y-1">
+    <div class="relative">
+      <img 
+        :src="anime.images.jpg.image_url" 
+        :alt="anime.title"
+        class="w-full h-60 object-cover group-hover:scale-105 transition" 
+      />
+
+      <span class="absolute top-2 right-2 px-2 py-1 rounded-lg text-xs font-semibold bg-black/60 text-white">⭐ {{ anime.score ?? "N/A"}}</span>
+    </div>
+    
+    <div class="p-4">
       <h3 class="font-semibold text-lg line-clamp-1">{{ anime.title }}</h3>
 
-      <p class="text-sm text-gray-500 dark:text-gray-400">{{ anime.type }}</p>
-    </div>
-      
-    <div class="text-sm text-gray-600 pt-2 dark:text-gray-300 flex justify-between">
-      <span>⭐ {{ anime.score }}</span>
-      <span>🎞️ {{ anime.episodes }} eps</span>
+      <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ anime.type }} · {{ anime.episodes ?? "?" }} eps</p>
     </div>
 
     <button
       @click.stop="toggleFav"
-      class="w-full py-2 font-semibold text-sm transition bg-neutral-800 hover:bg-neutral-700"
-      :class="{ 'text-red-400': favoriteStore.isFavorite(anime.mal_id) }"
+      class="w-full py-2 font-semibold text-sm transition bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+      :class="{ 'text-red-500': favoriteStore.isFavorite(anime.mal_id) }"
     >
-      {{ favoriteStore.isFavorite(anime.mal_id) ? 'Eliminar de favorits' : 'Afegir a favorits' }}
+      {{ favoriteStore.isFavorite(anime.mal_id) ? '❤️ Eliminar de favorits' : '🤍 Afegir a favorits' }}
     </button>
 
     <slot name="actions" :anime="anime"></slot>
-  </div>
+  </article>
 </template>
 

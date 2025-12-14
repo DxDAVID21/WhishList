@@ -9,6 +9,7 @@ export function useAnimeDetail() {
   const recommendations = ref([]);
   const loading = ref(false);
   const error = ref(null);
+  const video = ref(null);
 
   const globalLoading = inject("globalLoading");
 
@@ -23,6 +24,10 @@ export function useAnimeDetail() {
       // 1) Anime
       const animeRes = await jikan.anime(id);
       anime.value = animeRes.data.data;
+      
+      await wait(700);
+      const videoRes = await jikan.video(id);
+      video.value = videoRes.data.data;
 
       await wait(700); // evita el 429
 
@@ -50,5 +55,5 @@ export function useAnimeDetail() {
       globalLoading.value = false;
     }
   };
-  return { anime, characters, staff, recommendations, loading, error, fetchAnime };
+  return { anime, characters, staff, recommendations, video, loading, error, fetchAnime };
 }

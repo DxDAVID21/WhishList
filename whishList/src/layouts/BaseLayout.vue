@@ -1,12 +1,12 @@
 <template>
   <div class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-  <header class="backdrop-blur-lg bg-white/60 dark:bg-gray-800/60 border-b border-gray-300/40 dark:border-gray-700/40 sticky top-0 z-50">
+  <header class="backdrop-blur-lg bg-white/70 dark:bg-gray-800/70 border-b border-gray-200 dark:border-gray-700/40 sticky top-0 z-50">
     <nav class="max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
-      <RouterLink to="/" class="text-xl font-semibold tracking-wide hover:text-blue-400 transition">
+      <RouterLink to="/" class="text-xl text-gray-900 dark:text-white font-bold tracking-wide hover:text-indigo-500 transition">
         WhishList
       </RouterLink>
 
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-5 text-sm font-medium">
         <RouterLink to="/" class="hover:text-blue-500 transition">Home</RouterLink>
         <RouterLink to="/about" class="hover:text-blue-500 transition">About</RouterLink>
         <RouterLink to="/search" class="hover:text-blue-500 transition">Search</RouterLink>

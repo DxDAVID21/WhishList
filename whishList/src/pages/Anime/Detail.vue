@@ -1,8 +1,10 @@
 <script setup>
-import {onMounted} from 'vue';
+import {onMounted, ref} from 'vue';
 import { useRoute } from 'vue-router';
 import { useAnimeDetail } from '@/composables/useAnimeDetail.js';
 import { useFavoriteStore } from '@/stores/favoriteStore';
+
+const activeTab = ref("characters");
 
 const route = useRoute();
 console.log("Route PARAMS:", route.params);
@@ -23,7 +25,7 @@ function toggleFav() {
 const id = Number(route.params.id);
 console.log("Anime Detail ID:", id);  
 
-const { anime, characters, staff, recommendations, loading, error, fetchAnime } = useAnimeDetail();
+const { anime, characters, staff, recommendations, video, loading, error, fetchAnime } = useAnimeDetail();
 
 onMounted(() => {
   fetchAnime(id);
@@ -37,7 +39,7 @@ onMounted(() => {
     <div v-if="error" class="text-red-400">{{ error }}</div>
 
     <div v-if="anime" class="space-y-8">
-      <h1 class="text-4xl font-bold text-center">{{ anime.title }}</h1>
+      <h1 class="text-4xl font-bold text-center text-gray-900 dark:text-white">{{ anime.title }}</h1>
 
       <div class="flex justify-center mt-2">
         <button
@@ -61,7 +63,7 @@ onMounted(() => {
         <img 
           :src="anime.images.jpg.image_url" 
           :alt="anime.title"
-          class="w-full md:w-64 rounded-lg shadow-md" />
+          class="w-full h-[360px] md:w-64 rounded-xl shadow-md object-cover" />
 
         <div class="flex-1 space-y-2 text-gray-300">
           <p><strong class="text-white">Type:</strong> {{ anime.type }}</p>
@@ -69,16 +71,46 @@ onMounted(() => {
           <p><strong class="text-white">Status:</strong> {{ anime.status }}</p>
           <p><strong class="text-white">Aired:</strong> {{ anime.aired.string }}</p>
           <p><strong class="text-white">Score:</strong> ⭐ {{ anime.score }}</p>
+          <div class="mt-4">
+            <p class="font-semibold text-white mb-1">Synopsis</p>
+            <p class="text-gray-300 leading-relaxed pr-2">{{ anime.synopsis }}</p>
+          </div>
+          
         </div>
       </div>
 
-      <div class="bg-neutral-900 p-6 rounded-2xl shadow.lg">
-        <h2 class="text-2xl font-semibold mb-2">Synopsis</h2>
-        <p class="text-gray-300 leading-relaxed">{{ anime.synopsis }}</p>
+      <div
+        v-if="video?.promo?.length" 
+        class="bg-neutral-900 p-6 rounded-2xl shadow-lg"
+      >
+        <h2 class="text-2xl font-semibold mb-4">🎬 Tràiler</h2>
+        <iframe
+          :src="video.promo[0].trailer.embed_url" 
+          class="w-full aspect-video rounded-xl"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          loading="lazy"
+          allowfullscreen
+        ></iframe>
       </div>
 
-      <section>
-        <h2 class="text-2xl font-semibold mb-4">Characters</h2>
+      <p v-else class="text-gray-400">Aquest anime no té tràiler disponible.</p>
+
+      <div class="flex gap-4 border-b border-neutral-700 mt-10">
+        <button 
+          v-for="tab in ['characters', 'staff', 'recommendations']"
+          :key="tab"
+          @click="activeTab = tab" 
+          class="pb-2 px-2 capitalize transition"
+          :class="activeTab === tab
+            ? 'border-b-2 border-indigo-500 text-gray-900 dark:text-white'
+            : 'text-gray-400 hover:text-gray-700 dark:hover:text-white'"
+        >
+          {{ tab }}
+        </button>
+      </div>
+
+      <section v-if="activeTab === 'characters'" class="mt-6">
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
           <div 
             v-for="char in characters" 
@@ -95,8 +127,7 @@ onMounted(() => {
         </div>
       </section>
       
-      <section>
-        <h2 class="text-2xl font-semibold mb-4">Staff</h2>
+      <section v-if="activeTab === 'staff'" class="mt-6">
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
           <div 
             v-for="s in staff" 
@@ -114,13 +145,12 @@ onMounted(() => {
         </div>
       </section>
       
-      <section>
-      <h2 class="text-2xl font-semibold mb-4">Recommendations</h2>
+      <section v-if="activeTab === 'recommendations'" class="mt-6">
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
           <div
             v-for="rec in recommendations"
             :key="rec.entry.mal_id"
-            class="bg-neutral-900 p-3 rounded-xl hover:scale-105 trasition cursor-pointer"
+            class="bg-neutral-900 p-3 rounded-xl hover:scale-105 transition cursor-pointer"
             @click="$router.push(`/anime/${rec.entry.mal_id}`)"
           >
             <img 
