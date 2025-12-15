@@ -34,21 +34,3 @@ export const jikan = {
   }
 
 };
-/*
-const BASE = "https://api.jikan.moe/v4";
-
-export const jikan = {
-  search(query) {
-    return fetch(`${BASE}/anime?q=${query}&order_by=popularity`).then(res => res.json());
-  },
-  anime(id) {
-    return fetch(`${BASE}/anime/${id}/full`).then(res => res.json());
-  }, 
-  top(type = "anime") {
-    return fetch(`${BASE}/top/${type}`).then(res => res.json());
-  },
-  characters(id) {
-    return fetch(`${BASE}/anime/${id}/characters`).then(res => res.json());
-  }
-}
-*/

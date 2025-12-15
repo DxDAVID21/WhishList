@@ -21,7 +21,7 @@ function toggleFav() {
   }
 }
 
-const go = () => {
+function go() {
   router.push(`/anime/${anime.mal_id}`);
 }
 </script>
